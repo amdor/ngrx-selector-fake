@@ -1,2 +1,2 @@
-export * from './selector-fake';
-export * from './model';
+export * from "./selector-fake";
+export * from "./model";
