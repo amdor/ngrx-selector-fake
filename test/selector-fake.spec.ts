@@ -1,7 +1,7 @@
 import { select, Store } from "@ngrx/store";
 import { withLatestFrom } from "rxjs/operators";
 import { TestBed } from "@angular/core/testing";
-import { fakeSelector } from "../src";
+import { fakeSelector, SelectorFake } from "../src";
 import { MockStore, provideMockStore } from "@ngrx/store/testing";
 import { FeatureStateSelectors, State } from "./feature.selector";
 
@@ -47,6 +47,8 @@ describe("fakeSelector", () => {
 
     describe("when the subselectors are partially faked", () => {
         beforeEach(() => {
+            // only needed in case the testsuite does note reinitialize the module/namespace the selectors are in
+            (FeatureStateSelectors.memoizedCalculatorSelector as unknown as SelectorFake).and?.callThrough();
             fakeSelector(FeatureStateSelectors, "memoizedComplexSelector").and.useSelectors(
                 () => true,
                 FeatureStateSelectors.memoizedCalculatorSelector,
